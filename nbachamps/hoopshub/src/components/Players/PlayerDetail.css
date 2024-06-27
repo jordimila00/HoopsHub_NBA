@@ -1,0 +1,20 @@
+.player-detail {
+    text-align: left;
+    padding: 20px;
+  }
+  
+  .player-detail img {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  .player-detail h2 {
+    margin-bottom: 10px;
+  }
+  
+  .player-detail p {
+    margin-bottom: 5px;
+  }
+  

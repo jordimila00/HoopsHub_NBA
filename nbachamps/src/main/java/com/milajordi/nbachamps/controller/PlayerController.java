@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/player")
@@ -40,5 +42,10 @@ public class PlayerController {
     @GetMapping("/getByDraftYear/{draftYear}")
     public List<Players> getAllPlayersByDraftYear(@PathVariable Integer draftYear) {
         return playerService.getPlayersByDraftYear(draftYear);
+    }
+
+    @GetMapping("/getById/{player_id}")
+    public Optional<Players> getPlayersById(@PathVariable Integer player_id) {
+        return playerService.getPlayersById(player_id);
     }
 }

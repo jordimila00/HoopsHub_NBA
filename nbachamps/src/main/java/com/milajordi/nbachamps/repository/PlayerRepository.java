@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Players,Integer> {
@@ -14,4 +15,6 @@ public interface PlayerRepository extends JpaRepository<Players,Integer> {
     List<Players> getPlayersByDraftPick(Integer draftPick);
 
     List<Players> getPlayersByDraftYear(Integer draftYear);
+
+    Optional<Players> findById(Integer player_id);
 }

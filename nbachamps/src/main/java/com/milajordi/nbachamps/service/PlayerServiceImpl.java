@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlayerServiceImpl implements PlayerService{
@@ -41,6 +42,11 @@ public class PlayerServiceImpl implements PlayerService{
     @Override
     public List<Players> getPlayersByDraftYear(Integer draftYear) {
         return playerRepository.getPlayersByDraftYear(draftYear);
+    }
+
+    @Override
+    public Optional<Players> getPlayersById(Integer player_id) {
+        return playerRepository.findById(player_id);
     }
 
 

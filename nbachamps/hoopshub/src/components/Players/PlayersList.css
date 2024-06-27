@@ -1,0 +1,53 @@
+.team_table {
+    margin: 0 auto; /* Centra el div horizontalmente */
+    width: 80%; /* Ancho del div que contiene la tabla */
+    text-align: center; /* Alinea el contenido de manera central */
+  }
+  
+  .team_table table {
+    width: 100%; /* Ancho completo de la tabla */
+    max-width: 600px; /* Ancho máximo para la tabla */
+    border-collapse: collapse; /* Colapsa los bordes de la tabla */
+    margin: 0 auto; /* Centra la tabla dentro del contenedor */
+  }
+  
+  .team_table th,
+  .team_table td {
+    border: 1px solid #ddd; /* Bordes para celdas de la tabla */
+    padding: 8px; /* Espacio interno para celdas de la tabla */
+    text-align: left; /* Alineación de texto en celdas */
+    white-space: nowrap; /* Evita que el texto se envuelva */
+    overflow: hidden; /* Oculta el contenido que desborde */
+    text-overflow: ellipsis; /* Mostrar puntos suspensivos cuando el contenido desborde */
+  }
+  
+  .team_table th {
+    background-color: #f2f2f2; /* Color de fondo para encabezados de tabla */
+  }
+  
+  .team_table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Color de fondo para filas pares de la tabla */
+  }
+  
+  .team_table tbody tr:hover {
+    background-color: #ddd; /* Color de fondo para filas al pasar el ratón */
+  }
+  
+  .team-logo {
+    height: auto; /* Mantiene la proporción de la imagen */
+    max-width: 50px; /* Ancho máximo inicial de la imagen del logo */
+  }
+  
+  .team_table td:first-child {
+    width: 1%; /* Ajusta el ancho mínimo de la primera columna (logo) */
+    white-space: nowrap; /* Evita que el texto en la primera columna se envuelva */
+  }
+  
+  .team_table td:nth-child(2) {
+    width: 20%; /* Deja que la segunda columna (nombre del equipo) ajuste su ancho automáticamente según el contenido */
+  }
+  
+  .team_table td:nth-child(3) {
+    width: 20%; /* Ajusta el ancho porcentual de la tercera columna (nombre del estadio) */
+  }
+  

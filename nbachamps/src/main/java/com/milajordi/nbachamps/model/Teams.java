@@ -16,14 +16,24 @@ public class Teams {
     private String name;
     private String arena;
 
+    @Enumerated(EnumType.STRING) // Especifica que el atributo es de tipo Enum y se almacenará como String
+    @Column(length = 20) // Define la longitud máxima para el campo en la base de datos
+    private Division division;
+
+    @Enumerated(EnumType.STRING) // Especifica que el atributo es de tipo Enum y se almacenará como String
+    @Column(length = 20) // Define la longitud máxima para el campo en la base de datos
+    private Conference conference;
+
     public Teams() {
     }
 
-    public Teams(Integer team_id, String city, String name, String arena) {
+    public Teams(Integer team_id, String city, String name, String arena,Division division,Conference conference) {
         this.team_id = team_id;
         this.city = city;
         this.name = name;
         this.arena = arena;
+        this.division = division;
+        this.conference = conference;
     }
 
     public Integer getTeam_id() {
@@ -56,5 +66,21 @@ public class Teams {
 
     public void setArena(String arena) {
         this.arena = arena;
+    }
+
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
+    }
+
+    public Conference getConference() {
+        return conference;
+    }
+
+    public void setConference(Conference conference) {
+        this.conference = conference;
     }
 }
