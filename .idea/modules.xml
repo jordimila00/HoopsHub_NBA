@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/nbachamps.iml" filepath="$PROJECT_DIR$/.idea/nbachamps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/HoopsHub_NBA.iml" filepath="$PROJECT_DIR$/.idea/HoopsHub_NBA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nbachamps/nbachamps.iml" filepath="$PROJECT_DIR$/nbachamps/nbachamps.iml" />
     </modules>
   </component>
 </project>
