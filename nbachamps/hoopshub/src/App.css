@@ -17,7 +17,7 @@
   height: 100px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Cambiado a 'center' para centrar la imagen */
 }
 
 main {
@@ -39,8 +39,6 @@ main {
 .header-image {
   max-width: 200px;
   height: auto;
-  display: block;
-  margin: 0 auto;
 }
 
 .navigation {

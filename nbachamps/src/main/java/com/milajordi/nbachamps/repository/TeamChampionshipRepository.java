@@ -16,4 +16,13 @@ public interface TeamChampionshipRepository extends JpaRepository<TeamChampionsh
     @Query("SELECT COUNT(tc) > 0 FROM TeamChampionship tc WHERE tc.id.team_id = :team_id AND tc.id.year = :year")
     boolean existsByTeamIdAndYear(@Param("team_id") Integer team_id, @Param("year") Integer year);
 
+    @Query("SELECT COUNT(tc) FROM TeamChampionship tc WHERE tc.id.team_id = :team_id")
+    long countByTeamId(@Param("team_id") Integer team_id);
+
+    @Query("SELECT COUNT(tc) FROM TeamChampionship tc WHERE tc.id.team_id = :team_id AND tc.isChampion = true")
+    long countChampionshipWinsByTeamId(@Param("team_id") Integer team_id);
+
+    @Query("SELECT tc.id.year FROM TeamChampionship tc WHERE tc.id.team_id = :team_id AND tc.isChampion = true")
+    List<Integer> findChampionshipYearsByTeamId(@Param("team_id") Integer team_id);
+
 }

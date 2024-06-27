@@ -9,6 +9,7 @@ import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import NBAFinals from './assets/images/The_NBA_Finals_logo.png'; // Importa la imagen
 import PlayerDetail from './components/Players/PlayerDetail';
 import TeamDetail from './components/Teams/TeamDetail';
+import DraftList from './components/Drafts/DraftList';
 
 function Home() {
   return (
@@ -18,6 +19,7 @@ function Home() {
         <button><Link to="/teams">Teams</Link></button>
         <button><Link to="/players">Players</Link></button>
         <button><Link to="/championships">Championships</Link></button>
+        <button><Link to="/drafts">Drafts</Link></button>
         {/* Puedes agregar más botones de navegación aquí */}
       </nav>
     </div>
@@ -29,7 +31,9 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <img src={NBAFinals} alt="NBA Finals" className="header-image" />
+          <Link to="/">
+            <img src={NBAFinals} alt="NBA Finals" className="header-image" />
+          </Link>
           {/* Añade la imagen en el header */}
         </header>
 
@@ -38,6 +42,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/teams" element={<TeamsList />} />
             <Route path="/players" element={<PlayersList />} />
+            <Route path="/drafts" element={<DraftList />} />
             <Route path="/player/:player_id" element={<PlayerDetail/>}/>
             <Route path="/team/:team_id" element={<TeamDetail/>}/>
             {/* Puedes agregar más rutas aquí */}

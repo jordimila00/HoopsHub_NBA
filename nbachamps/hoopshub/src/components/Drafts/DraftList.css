@@ -1,0 +1,59 @@
+.draft-list-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .years-list {
+    flex: 1;
+    border-right: 1px solid #ccc;
+    padding-right: 20px;
+  }
+  
+  .years-list h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .years-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .years-list li {
+    cursor: pointer;
+    padding: 5px 0;
+    font-size: 16px;
+  }
+  
+  .years-list li.selected {
+    font-weight: bold;
+  }
+  
+  .players-table {
+    flex: 2;
+    padding-left: 20px;
+  }
+  
+  .players-table h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .players-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .players-table th,
+  .players-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .players-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  

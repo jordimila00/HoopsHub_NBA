@@ -24,16 +24,25 @@ public class Teams {
     @Column(length = 20) // Define la longitud máxima para el campo en la base de datos
     private Conference conference;
 
+    private Integer seats;
+
+    private Integer arenaYear;
+
+    private Integer establishmentYear;
+
     public Teams() {
     }
 
-    public Teams(Integer team_id, String city, String name, String arena,Division division,Conference conference) {
+    public Teams(Integer team_id, String city, String name, String arena,Division division,Conference conference,Integer seats,Integer arenaYear,Integer establishmentYear) {
         this.team_id = team_id;
         this.city = city;
         this.name = name;
         this.arena = arena;
         this.division = division;
         this.conference = conference;
+        this.seats = seats;
+        this.arenaYear=arenaYear;
+        this.establishmentYear=establishmentYear;
     }
 
     public Integer getTeam_id() {
@@ -82,5 +91,29 @@ public class Teams {
 
     public void setConference(Conference conference) {
         this.conference = conference;
+    }
+
+    public Integer getSeats() {
+        return seats;
+    }
+
+    public void setSeats(Integer seats) {
+        this.seats = seats;
+    }
+
+    public Integer getArenaYear() {
+        return arenaYear;
+    }
+
+    public void setArenaYear(Integer arenaYear) {
+        this.arenaYear = arenaYear;
+    }
+
+    public Integer getEstablishmentYear() {
+        return establishmentYear;
+    }
+
+    public void setEstablishmentYear(Integer establishmentYear) {
+        this.establishmentYear = establishmentYear;
     }
 }

@@ -1,24 +1,67 @@
-  .team-detail .team-info {
-    flex: 1; /* Ocupa el espacio restante */
-    margin-right: 20px; /* Margen a la derecha del texto */
-  }
+.team-detail {
+  display: flex;
+  justify-content: space-between; /* Distribuye los paneles a lo largo del contenedor */
+  padding: 20px;
+  align-items: center; /* Centra verticalmente los elementos */
+  text-align: left; /* Alinea el texto a la izquierda */
+}
 
-  .team-detail {
-    display: flex; /* Utilizamos flexbox para organizar los elementos */
-    align-items: flex-start; /* Alinea verticalmente los elementos al inicio */
-    padding: 20px;
-  }
+.left-panel {
+  flex: 1; /* Ocupa 1 parte del espacio disponible */
+  margin-right: 20px; /* Espacio entre los paneles */
+}
 
-  .team-detail img {
-    max-width: 750px; /* Ajusta el tamaño máximo de la imagen */
-    height: auto;
-    margin-top: 7%; /* Margen arriba */
-    margin-left: auto; /* Mueve la imagen hacia la derecha */
-    margin-right: 7%; /* Margen a la derecha */
-  }
-  
-  
-  .team-detail p {
-    margin-bottom: 5px;
-  }
-  
+.center-panel {
+  flex: 1; /* Ocupa 1 parte del espacio disponible */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra los elementos horizontalmente */
+}
+
+.team-name {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos dentro de .team-name */
+}
+
+.team-logo {
+  width: 50px; /* Ajusta el tamaño del logo según sea necesario */
+  height: 50px; /* Ajusta el tamaño del logo según sea necesario */
+  margin-right: 10px; /* Espacio entre el logo y el texto */
+}
+
+.team-info-location {
+  margin-bottom: 10px;
+}
+
+.arena-info {
+  margin-bottom: 10px;
+  text-align: left;
+  margin-left: 17%;
+}
+
+.team-arena {
+  text-align: center; /* Centra la imagen horizontalmente */
+  margin-top: 5%;
+}
+
+.team-arena img{
+  width:65%
+}
+
+.championships-info {
+  text-align: center; /* Centra el texto y la imagen horizontalmente */
+  margin-top: 20px;
+}
+
+.championships-info img {
+  max-width: 200px; /* Ajusta el tamaño máximo de la imagen del trofeo */
+  height: auto;
+  margin-top: 10px; /* Espacio arriba de la imagen del trofeo */
+}
+
+
+.arena-name{
+  font-weight: bold; /* Negrita */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

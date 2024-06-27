@@ -31,4 +31,22 @@ public class TeamChampionshipController {
     public List<TeamChampionship> getAllTeamChampionship(){
         return teamChampionshipService.getAllTeamChampionships();
     }
+
+    @GetMapping("/count/{team_id}")
+    public ResponseEntity<Long> countByTeamId(@PathVariable Integer team_id) {
+        long count = teamChampionshipService.countByTeamId(team_id);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/wins/count/{team_id}")
+    public ResponseEntity<Long> countChampionshipWinsByTeamId(@PathVariable Integer team_id) {
+        long count = teamChampionshipService.countChampionshipsWinsByTeamId(team_id);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/wins/years/{team_id}")
+    public ResponseEntity<List<Integer>> findChampionshipYearsByTeamId(@PathVariable Integer team_id) {
+        List<Integer> years = teamChampionshipService.findChampionshipYearsByTeamId(team_id);
+        return ResponseEntity.ok(years);
+    }
 }
