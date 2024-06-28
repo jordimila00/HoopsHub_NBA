@@ -25,4 +25,5 @@ public interface TeamChampionshipRepository extends JpaRepository<TeamChampionsh
     @Query("SELECT tc.id.year FROM TeamChampionship tc WHERE tc.id.team_id = :team_id AND tc.isChampion = true")
     List<Integer> findChampionshipYearsByTeamId(@Param("team_id") Integer team_id);
 
+    List<TeamChampionship> findByChampionshipsYear(@Param("year") Integer year);
 }

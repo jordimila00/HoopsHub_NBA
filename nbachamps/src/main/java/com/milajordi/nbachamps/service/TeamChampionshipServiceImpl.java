@@ -56,4 +56,9 @@ public class TeamChampionshipServiceImpl implements TeamChampionshipService {
     public List<Integer> findChampionshipYearsByTeamId(Integer team_id) {
         return teamChampionshipRepository.findChampionshipYearsByTeamId(team_id);
     }
+
+    @Override
+    public List<TeamChampionship> getTeamChampionshipsByYear(Integer year) {
+        return teamChampionshipRepository.findByChampionshipsYear(year);
+    }
 }

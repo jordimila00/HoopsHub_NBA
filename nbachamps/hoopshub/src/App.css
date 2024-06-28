@@ -7,23 +7,82 @@
 
 .App-header {
   background-color: #f58634;
-  padding: 20px 20px;
+  padding: 20px;
   color: black;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  height: 100px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center; /* Cambiado a 'center' para centrar la imagen */
+}
+
+.header-image {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  background-color: #f58634;
+  padding: 10px 0;
+}
+
+.navigation a {
+  padding: 10px 20px;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.navigation a:hover {
+  background-color: #f58634;
 }
 
 main {
   flex: 1;
-  margin-top: 100px;
+  margin-top: 180px; /* Ajustado para dar espacio suficiente al header */
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left-content, .right-content {
+  width: 45%;
+  margin: 10px;
+}
+
+.left-content table, .right-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.left-content th, .right-content th,
+.left-content td, .right-content td {
+  border: 1px solid #fff;
+  padding: 8px;
+}
+
+.left-content th, .right-content th {
+  background-color: #f58634;
+  color: black;
+}
+
+.top-team, .top-drafts {
+  margin-bottom: 20px;
 }
 
 .App-footer {
@@ -36,31 +95,28 @@ main {
   left: 0;
 }
 
-.header-image {
-  max-width: 200px;
+/* Estilos específicos para la tabla de últimas finales */
+.latest-finals,
+.most-champs-team {
+  margin-top: 2%;
+}
+
+/* Estilo para la celda del equipo */
+/* Estilo para la celda del equipo */
+.team-cell {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo para el logo del equipo */
+.team-logo {
+  max-width: 50px; /* Ajusta el tamaño máximo según sea necesario */
   height: auto;
+  margin-right: 10px; /* Ajusta el margen derecho según sea necesario */
 }
 
-.navigation {
-  margin-top: 20px;
-}
-
-.navigation button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  background-color: #f58634;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.navigation button a {
-  color: white;
-  text-decoration: none;
-}
-
-.navigation button:hover {
-  background-color: #e67e22;
+/* Estilo para el texto del equipo */
+.team-name {
+  display: flex;
+  align-items: center;
 }

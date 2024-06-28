@@ -16,5 +16,6 @@ public interface TeamChampionshipService {
 
     List<Integer> findChampionshipYearsByTeamId(Integer team_id);
 
+    List<TeamChampionship> getTeamChampionshipsByYear(Integer year);
 
 }

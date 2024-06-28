@@ -49,4 +49,10 @@ public class TeamChampionshipController {
         List<Integer> years = teamChampionshipService.findChampionshipYearsByTeamId(team_id);
         return ResponseEntity.ok(years);
     }
+
+    @GetMapping("/year/{year}")
+    public ResponseEntity<List<TeamChampionship>> getTeamChampionshipsByYear(@PathVariable Integer year) {
+        List<TeamChampionship> championships = teamChampionshipService.getTeamChampionshipsByYear(year);
+        return ResponseEntity.ok(championships);
+    }
 }
