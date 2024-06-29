@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import TeamsList from './components/Teams/TeamsList';
 import PlayersList from './components/Players/PlayersList';
 import './App.css';
+import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
@@ -12,6 +13,7 @@ import TeamDetail from './components/Teams/TeamDetail';
 import DraftList from './components/Drafts/DraftList';
 
 function Home() {
+  
   const [latestChampionshipData, setLatestChampionshipData] = useState(null);
   const [latestYear, setLatestYear] = useState(null);
   const [draftPlayers, setDraftPlayers] = useState([]);
@@ -41,7 +43,9 @@ function Home() {
         fetch(`http://localhost:8080/player/getByDraftYear/${latestYear}`)
           .then(response => response.json())
           .then(players => {
-            setDraftPlayers(players);
+            // Limitar a los primeros 10 jugadores
+            const firstTenPlayers = players.slice(0, 10);
+            setDraftPlayers(firstTenPlayers);
           })
           .catch(error => {
             console.error('Error fetching draft players:', error);
@@ -129,7 +133,7 @@ if (!latestChampionshipData || !teamDetails) {
           <tbody>
             {finalsWinner && (
               <tr>
-                <td className="team-cell">
+                <td className="team-cell winner">
                   <img
                     src={getImageUrl(finalsWinner.teams.city, finalsWinner.teams.name)}
                     alt={`${finalsWinner.teams.city} ${finalsWinner.teams.name} Logo`}
@@ -143,7 +147,7 @@ if (!latestChampionshipData || !teamDetails) {
                     </td>
                   </span>
                 </td>
-                <td>{finalsWinner.teams.team_id}</td>
+                <td>{finalsWinner.games}</td>
                 <td>{finalsWinner.coach}</td>
               </tr>
             )}
@@ -163,20 +167,29 @@ if (!latestChampionshipData || !teamDetails) {
                     </td>
                   </span>
                 </td>
-                <td>{finalsLoser.teams.team_id}</td>
+                <td>{finalsLoser.games}</td>
                 <td>{finalsLoser.coach}</td>
               </tr>
             )}
             <br/><br/>
             <tr>
-              <th colSpan="5">CLUTCH PLAYERS</th>
+              <th colSpan="6">CLUTCH PLAYERS</th>
             </tr>
             <tr>
               <th>Player</th>
+              <th>No</th>
               <th>AVG Pts</th>
               <th>AVG Reb</th>
               <th>AVG Ast</th>
               <th>AVG Min</th>
+            </tr>
+            <tr>
+              <td>Luka Doncic</td>
+              <td>77</td>
+              <td>25</td>
+              <td>8</td>
+              <td>8</td>
+              <td>30</td>
             </tr>
           </tbody>
         </table>
@@ -255,10 +268,9 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <Link to="/">
             <img src={NBAFinals} alt="NBA Finals" className="header-image" />
-          </Link>
           <nav className="navigation">
+            <Link to="/"><b>Home</b></Link>
             <Link to="/teams"><b>Teams</b></Link>
             <Link to="/players"><b>Players</b></Link>
             <Link to="/championships"><b>Championships</b></Link>

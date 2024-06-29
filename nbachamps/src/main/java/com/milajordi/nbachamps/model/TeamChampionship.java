@@ -24,15 +24,18 @@ public class TeamChampionship {
     private String coach;
     private boolean isChampion;
 
+    private Integer games;
+
     public TeamChampionship() {
     }
 
-    public TeamChampionship(TeamChampionshipId id, Teams teams, Championships championships, String coach, boolean isChampion) {
+    public TeamChampionship(TeamChampionshipId id, Teams teams, Championships championships, String coach, boolean isChampion, Integer games) {
         this.id = id;
         this.teams = teams;
         this.championships = championships;
         this.coach = coach;
         this.isChampion = isChampion;
+        this.games = games;
     }
 
     public TeamChampionshipId getId() {
@@ -73,6 +76,14 @@ public class TeamChampionship {
 
     public void setIsChampion(boolean isChampion) {
         this.isChampion = isChampion;
+    }
+
+    public Integer getGames() {
+        return games;
+    }
+
+    public void setGames(Integer games) {
+        this.games = games;
     }
 
     @Embeddable

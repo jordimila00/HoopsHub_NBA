@@ -44,9 +44,6 @@ function PlayerDetail() {
       <p>Born in {player.birthDate}</p>
       <p>{player.birthCity}, {player.birthState}</p><img src={flagUrl} alt={`Flag of ${player.birthCountry}`} />
       <p>Class of {player.draftYear}, Pick {player.draftPick}.</p>
-
-      hacer pestaña de drafts por año y mostrar jugadores, y dentro de jugadores , en class of year, ir a draft.
-
     </div>
   );
 }

@@ -1,59 +1,100 @@
+/* Estilo para el contenedor principal */
 .draft-list-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
-  }
-  
-  .years-list {
-    flex: 1;
-    border-right: 1px solid #ccc;
-    padding-right: 20px;
-  }
-  
-  .years-list h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .years-list ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .years-list li {
-    cursor: pointer;
-    padding: 5px 0;
-    font-size: 16px;
-  }
-  
-  .years-list li.selected {
-    font-weight: bold;
-  }
-  
-  .players-table {
-    flex: 2;
-    padding-left: 20px;
-  }
-  
-  .players-table h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .players-table table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .players-table th,
-  .players-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .players-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
-  
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+/* Estilo para la columna de selección de años */
+.draft-year-selection {
+  flex: 0 0 20%; /* Ocupa el 20% del ancho de la pantalla */
+  border-right: 1px solid #ccc;
+  padding-right: 20px;
+  box-sizing: border-box;
+  overflow-y: auto; /* Habilita el scroll vertical */
+  max-height: 100%; /* Asegura que la columna ocupe toda la altura disponible */
+}
+
+/* Estilo para el título de los años */
+.draft-year-selection h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Estilo para el select de los años */
+.draft-year-selection select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Estilo para las opciones del select */
+.draft-year-selection select option {
+  padding: 10px;
+}
+
+/* Estilo para las opciones seleccionadas del select */
+.draft-year-selection select option:checked {
+  background-color: #f0f0f0;
+}
+
+/* Estilo para las opciones al pasar el cursor */
+.draft-year-selection select option:hover {
+  background-color: #e0e0e0;
+}
+
+/* Estilo para las columnas de los jugadores */
+.draft-players-columns {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+/* Estilo para cada columna de jugadores */
+.draft-players-column {
+  flex: 1;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+/* Estilo para el título de cada columna de jugadores */
+.draft-players-column h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin-top: -1%;
+}
+
+/* Estilo para la tabla de jugadores */
+.draft-players-column table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Estilo para las celdas de encabezado y cuerpo de la tabla */
+.draft-players-column th,
+.draft-players-column td {
+  border: 1px solid white;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Estilo para las celdas de encabezado de la tabla */
+.draft-players-column th {
+  background-color: #f58634;
+  color: black;
+}
+
+.draft-year-selection img{
+  width: 80%;
+  margin-bottom: 5%;
+}
+
