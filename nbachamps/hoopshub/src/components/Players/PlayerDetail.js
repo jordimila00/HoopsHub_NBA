@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './PlayerDetail.css'; // Importa el archivo CSS
 
 function PlayerDetail() {
   const { player_id } = useParams();
@@ -38,14 +37,19 @@ function PlayerDetail() {
   }
 
   return (
-    <div className="player-detail">
-      <h2>{player.name} {player.jerseyName}</h2>
-      <img src={playerImage} alt={`Headshot of ${player.name}`} />
-      <p>Born in {player.birthDate}</p>
-      <p>{player.birthCity}, {player.birthState}</p><img src={flagUrl} alt={`Flag of ${player.birthCountry}`} />
-      <p>Class of {player.draftYear}, Pick {player.draftPick}.</p>
+    <div class="mt-6">
+      <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <img src={playerImage} alt={`Headshot of ${player.name}`} className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"/>
+        <div class="flex flex-col justify-between p-4 leading-normal">
+          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{player.name} {player.jerseyName}</h2>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Born in {player.birthDate}</p>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{player.birthCity}, {player.birthState}</p>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{player.height}, {player.weight}</p>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><p>Class of {player.draftYear}, Pick {player.draftPick}.</p></p>
+          <img src={flagUrl} alt={`Flag of ${player.birthCountry}`} className="blur-sm"/>
+        </div>
+      </div>
     </div>
   );
 }
-
 export default PlayerDetail;

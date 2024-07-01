@@ -27,10 +27,13 @@ public class Players {
     private Integer draftYear;
     private Integer draftPick;
 
+    private Double height;
+    private Integer weight;
+
     public Players() {
     }
 
-    public Players(Integer player_id, String name, String jerseyName, LocalDate birthDate, String birthCity, String birthState, String birthCountry,Integer draftYear,Integer draftPick) {
+    public Players(Integer player_id, String name, String jerseyName, LocalDate birthDate, String birthCity, String birthState, String birthCountry,Integer draftYear,Integer draftPick,Double height, Integer weight) {
         this.player_id = player_id;
         this.name = name;
         this.jerseyName = jerseyName;
@@ -40,6 +43,8 @@ public class Players {
         this.birthCountry = birthCountry;
         this.draftYear = draftYear;
         this.draftPick = draftPick;
+        this.height = height;
+        this.weight = weight;
     }
 
 
@@ -114,5 +119,21 @@ public class Players {
 
     public void setDraftPick(Integer draftPick) {
         this.draftPick = draftPick;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 }

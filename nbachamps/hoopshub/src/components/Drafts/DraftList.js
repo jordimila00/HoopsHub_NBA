@@ -45,7 +45,7 @@ const DraftList = () => {
   // Función para manejar el scroll hacia abajo en el select de años
   const handleScroll = () => {
     if (selectRef.current) {
-      selectRef.current.size = Math.min(10, years.length); // Mostrar hasta 10 opciones o menos si hay menos años
+      selectRef.current.size = Math.min(8, years.length); // Mostrar hasta 10 opciones o menos si hay menos años
     }
   };
 

@@ -81,19 +81,7 @@ main {
   color: black;
 }
 
-.top-team, .top-drafts {
-  margin-bottom: 20px;
-}
 
-.App-footer {
-  background-color: #f58634;
-  padding: 10px;
-  color: black;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-}
 
 /* Estilos específicos para la tabla de últimas finales */
 .latest-finals,

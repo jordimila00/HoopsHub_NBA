@@ -31,6 +31,10 @@ public class TeamServiceImpl implements TeamService{
             throw new IllegalArgumentException("La división " + teams.getDivision() + " ya tiene 5 equipos. No se pueden agregar más equipos.");
         }
 
+        if (teams.getCode().length() != 3){
+            throw new IllegalArgumentException("El codigo ha de ser de 3 letras");
+        }
+
         // Verificar las reglas adicionales de división y conferencia
         if (teams.getConference().equals(Conference.Eastern)) {
             // Verifica que la división sea una de las permitidas para la conferencia Eastern

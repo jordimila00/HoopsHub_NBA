@@ -289,9 +289,9 @@ function App() {
           </Routes>
         </main>
 
-        <footer className="App-footer">
+        <footer className="bg-orange-400 p-2 text-black w-full fixed bottom-0 left-0">
           <p>&copy;Copyright 2024 | Made by Jordi Milà</p>
-          <div className="social-icons">
+          <div className="flex justify-center space-x-4 mt-2">
             <a href="https://github.com/jordimila00" target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={faGithub} size="2x" />
             </a>

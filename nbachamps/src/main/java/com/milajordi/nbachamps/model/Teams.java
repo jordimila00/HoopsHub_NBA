@@ -30,10 +30,12 @@ public class Teams {
 
     private Integer establishmentYear;
 
+    private String code;
+
     public Teams() {
     }
 
-    public Teams(Integer team_id, String city, String name, String arena,Division division,Conference conference,Integer seats,Integer arenaYear,Integer establishmentYear) {
+    public Teams(Integer team_id, String city, String name, String arena,Division division,Conference conference,Integer seats,Integer arenaYear,Integer establishmentYear, String code) {
         this.team_id = team_id;
         this.city = city;
         this.name = name;
@@ -43,6 +45,7 @@ public class Teams {
         this.seats = seats;
         this.arenaYear=arenaYear;
         this.establishmentYear=establishmentYear;
+        this.code = code;
     }
 
     public Integer getTeam_id() {
@@ -115,5 +118,13 @@ public class Teams {
 
     public void setEstablishmentYear(Integer establishmentYear) {
         this.establishmentYear = establishmentYear;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -66,6 +66,7 @@ function TeamDetail() {
           <h1>{team.city} {team.name}</h1>
         </div>
         <div className="team-info-location">
+          <p>{team.code}</p>
           <p>{team.division} Division</p>
           <p>{team.conference} Conference</p>
           <p>Founded in {team.establishmentYear}</p>
