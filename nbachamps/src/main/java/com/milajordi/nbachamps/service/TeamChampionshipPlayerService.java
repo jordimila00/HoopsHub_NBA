@@ -8,4 +8,6 @@ public interface TeamChampionshipPlayerService {
     public void saveTeamChampionshipPlayer(TeamChampionshipPlayer teamChampionshipPlayer);
 
     List<TeamChampionshipPlayer> getAllTeamChampionshipPlayers();
+
+    List<TeamChampionshipPlayer> getTeamChampionshipPlayersByYear(Integer year);
 }

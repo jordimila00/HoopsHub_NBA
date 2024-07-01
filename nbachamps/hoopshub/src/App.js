@@ -4,13 +4,16 @@ import TeamsList from './components/Teams/TeamsList';
 import PlayersList from './components/Players/PlayersList';
 import './App.css';
 import './index.css';
+import NBAFinals from './assets/images/The_NBA_Finals_logo.png';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
-import NBAFinals from './assets/images/The_NBA_Finals_logo.png';
+
 import PlayerDetail from './components/Players/PlayerDetail';
 import TeamDetail from './components/Teams/TeamDetail';
 import DraftList from './components/Drafts/DraftList';
+
 
 function Home() {
   
@@ -19,6 +22,19 @@ function Home() {
   const [draftPlayers, setDraftPlayers] = useState([]);
   const [mostChampionshipTeams, setMostChampionshipTeams] = useState([]);
   const [teamDetails, setTeamDetails] = useState(null);
+  const [clutchPlayers, setClutchPlayers] = useState([]);
+  const [sortConfig, setSortConfig] = useState({ key: 'pointsPerGame', direction: 'desc' });
+
+  useEffect(() => {
+    fetch('http://localhost:8080/teamchampionshipplayer/getByYear/2024')
+        .then(response => response.json())
+        .then(data => {
+            setClutchPlayers(data);
+        })
+        .catch(error => {
+            console.error('Error fetching clutch players:', error);
+        });
+}, []);
 
   useEffect(() => {
     // Obtener todos los campeonatos
@@ -105,6 +121,22 @@ function Home() {
     });
 }, []);
 
+const handleSort = (key) => {
+  let direction = 'asc';
+  if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+  }
+  setSortConfig({ key, direction });
+};
+
+const sortedPlayers = [...clutchPlayers].sort((a, b) => {
+  if (sortConfig.direction === 'asc') {
+      return a[sortConfig.key] - b[sortConfig.key];
+  } else {
+      return b[sortConfig.key] - a[sortConfig.key];
+  }
+});
+
 if (!latestChampionshipData || !teamDetails) {
   return <div>Loading...</div>;
 }
@@ -173,24 +205,38 @@ if (!latestChampionshipData || !teamDetails) {
             )}
             <br/><br/>
             <tr>
-              <th colSpan="6">CLUTCH PLAYERS</th>
+              <th colSpan="12">CLUTCH PLAYERS</th>
             </tr>
             <tr>
               <th>Player</th>
-              <th>No</th>
-              <th>AVG Pts</th>
-              <th>AVG Reb</th>
-              <th>AVG Ast</th>
-              <th>AVG Min</th>
+              <th onClick={() => handleSort('jerseyNumber')}>NO</th>
+              <th onClick={() => handleSort('teams.code')}>TM</th>
+              <th onClick={() => handleSort('gamesPlayed')}>GP</th>
+              <th onClick={() => handleSort('minutesPerGame')}>MPG</th>
+              <th onClick={() => handleSort('pointsPerGame')}>PPG</th>
+              <th onClick={() => handleSort('reboundsPerGame')}>RPG</th>
+              <th onClick={() => handleSort('assistsPerGame')}>APG</th>
+              <th onClick={() => handleSort('stealsPerGame')}>SPG</th>
+              <th onClick={() => handleSort('blocksPerGame')}>BPG</th>
+              <th onClick={() => handleSort('percentageFieldGoals')}>FG%</th>
+              <th onClick={() => handleSort('percentageThreePoints')}>3P%</th>
             </tr>
-            <tr>
-              <td>Luka Doncic</td>
-              <td>77</td>
-              <td>25</td>
-              <td>8</td>
-              <td>8</td>
-              <td>30</td>
-            </tr>
+            {sortedPlayers.map(player => (
+                    <tr key={player.id.player_id}>
+                        <td>{player.players.name} {player.players.jerseyName}</td>
+                        <td>{player.jerseyNumber}</td>
+                        <td>{player.teams.code}</td>
+                        <td>{player.gamesPlayed}</td>
+                        <td>{player.minutesPerGame}</td>
+                        <td>{player.pointsPerGame}</td>
+                        <td>{player.reboundsPerGame}</td>
+                        <td>{player.assistsPerGame}</td>
+                        <td>{player.stealsPerGame}</td>
+                        <td>{player.blocksPerGame}</td>
+                        <td>{player.percentageFieldGoals}</td>
+                        <td>{player.percentageThreePoints}</td>
+                    </tr>
+                ))}
           </tbody>
         </table>
       </div>
@@ -267,7 +313,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
+      <header className="App-header">
             <img src={NBAFinals} alt="NBA Finals" className="header-image" />
           <nav className="navigation">
             <Link to="/"><b>Home</b></Link>

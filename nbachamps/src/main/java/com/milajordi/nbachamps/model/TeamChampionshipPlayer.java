@@ -28,15 +28,37 @@ public class TeamChampionshipPlayer {
 
     private Integer jerseyNumber;
 
+    private Integer gamesPlayed;
+    private Double minutesPerGame;
+    private Double pointsPerGame;
+    private Double reboundsPerGame;
+    private Double assistsPerGame;
+    private Double stealsPerGame;
+    private Double blocksPerGame;
+    private Integer percentageFieldGoals;
+    private Integer percentageThreePoints;
+
+
+
     public TeamChampionshipPlayer() {
     }
 
-    public TeamChampionshipPlayer(TeamChampionshipPlayerId id, Teams teams, Championships championships, Players players, Integer jerseyNumber) {
+    public TeamChampionshipPlayer(TeamChampionshipPlayerId id, Teams teams, Championships championships, Players players, Integer jerseyNumber,Integer gamesPlayed,Double minutesPerGame,Double pointsPerGame,Double reboundsPerGame,Double assistsPerGame,Double stealsPerGame,Double blocksPerGame,Integer percentageFieldGoals,Integer percentageThreePoints ) {
         this.id = id;
         this.teams = teams;
         this.championships = championships;
         this.players = players;
         this.jerseyNumber = jerseyNumber;
+        this.gamesPlayed = gamesPlayed;
+        this.minutesPerGame = minutesPerGame;
+        this.pointsPerGame = pointsPerGame;
+        this.reboundsPerGame = reboundsPerGame;
+        this.assistsPerGame = assistsPerGame;
+        this.stealsPerGame = stealsPerGame;
+        this.blocksPerGame = blocksPerGame;
+        this.percentageFieldGoals = percentageFieldGoals;
+        this.percentageThreePoints = percentageThreePoints;
+
     }
 
     public TeamChampionshipPlayerId getId() {
@@ -78,6 +100,80 @@ public class TeamChampionshipPlayer {
     public void setJerseyNumber(Integer jerseyNumber) {
         this.jerseyNumber = jerseyNumber;
     }
+
+    public Integer getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public void setGamesPlayed(Integer gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
+    }
+
+    public Double getMinutesPerGame() {
+        return minutesPerGame;
+    }
+
+    public void setMinutesPerGame(Double minutesPerGame) {
+        this.minutesPerGame = minutesPerGame;
+    }
+
+    public Double getPointsPerGame() {
+        return pointsPerGame;
+    }
+
+    public void setPointsPerGame(Double pointsPerGame) {
+        this.pointsPerGame = pointsPerGame;
+    }
+
+    public Double getReboundsPerGame() {
+        return reboundsPerGame;
+    }
+
+    public void setReboundsPerGame(Double reboundsPerGame) {
+        this.reboundsPerGame = reboundsPerGame;
+    }
+
+    public Double getAssistsPerGame() {
+        return assistsPerGame;
+    }
+
+    public void setAssistsPerGame(Double assistsPerGame) {
+        this.assistsPerGame = assistsPerGame;
+    }
+
+    public Double getStealsPerGame() {
+        return stealsPerGame;
+    }
+
+    public void setStealsPerGame(Double stealsPerGame) {
+        this.stealsPerGame = stealsPerGame;
+    }
+
+    public Double getBlocksPerGame() {
+        return blocksPerGame;
+    }
+
+    public void setBlocksPerGame(Double blocksPerGame) {
+        this.blocksPerGame = blocksPerGame;
+    }
+
+    public Integer getPercentageFieldGoals() {
+        return percentageFieldGoals;
+    }
+
+    public void setPercentageFieldGoals(Integer percentageFieldGoals) {
+        this.percentageFieldGoals = percentageFieldGoals;
+    }
+
+    public Integer getPercentageThreePoints() {
+        return percentageThreePoints;
+    }
+
+    public void setPercentageThreePoints(Integer percentageThreePoints) {
+        this.percentageThreePoints = percentageThreePoints;
+    }
+
+
 
     @Embeddable
     public static class TeamChampionshipPlayerId implements Serializable{

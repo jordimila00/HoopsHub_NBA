@@ -46,7 +46,7 @@ function PlayerDetail() {
           <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{player.birthCity}, {player.birthState}</p>
           <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{player.height}, {player.weight}</p>
           <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><p>Class of {player.draftYear}, Pick {player.draftPick}.</p></p>
-          <img src={flagUrl} alt={`Flag of ${player.birthCountry}`} className="blur-sm"/>
+          <img src={flagUrl} alt={`Flag of ${player.birthCountry}`}/>
         </div>
       </div>
     </div>
