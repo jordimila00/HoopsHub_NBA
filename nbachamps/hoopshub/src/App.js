@@ -8,6 +8,7 @@ import NBAFinals from './assets/images/The_NBA_Finals_logo.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 
 import PlayerDetail from './components/Players/PlayerDetail';
@@ -36,39 +37,39 @@ function Home() {
         });
 }, []);
 
-  useEffect(() => {
-    // Obtener todos los campeonatos
-    fetch('http://localhost:8080/championship/getAll')
-      .then(response => response.json())
-      .then(championships => {
-        // Encontrar el año más reciente
-        const latestYear = Math.max(...championships.map(championship => championship.year));
-        setLatestYear(latestYear);
+useEffect(() => {
+  // Obtener todos los campeonatos
+  fetch('http://localhost:8080/championship/getAll')
+    .then(response => response.json())
+    .then(championships => {
+      // Encontrar el año más reciente
+      const latestYear = Math.max(...championships.map(championship => championship.year));
+      setLatestYear(latestYear);
 
-        // Obtener los datos del campeonato más reciente
-        fetch(`http://localhost:8080/teamchampionship/year/${latestYear}`)
-          .then(response => response.json())
-          .then(data => {
-            setLatestChampionshipData(data);
-          })
-          .catch(error => {
-            console.error('Error fetching championship data:', error);
-          });
+      // Obtener los datos del campeonato más reciente
+      fetch(`http://localhost:8080/teamchampionship/year/${latestYear}`)
+        .then(response => response.json())
+        .then(data => {
+          setLatestChampionshipData(data);
+        })
+        .catch(error => {
+          console.error('Error fetching championship data:', error);
+        });
 
-        // Obtener los jugadores del draft para el último año encontrado
-        fetch(`http://localhost:8080/player/getByDraftYear/${latestYear}`)
-          .then(response => response.json())
-          .then(players => {
-            // Limitar a los primeros 10 jugadores
-            const firstTenPlayers = players.slice(0, 10);
-            setDraftPlayers(firstTenPlayers);
-          })
-          .catch(error => {
-            console.error('Error fetching draft players:', error);
-          });
+      // Obtener los jugadores del draft para el último año encontrado
+      fetch(`http://localhost:8080/player/getByDraftYear/${latestYear}`)
+        .then(response => response.json())
+        .then(players => {
+          // Limitar a los primeros 10 jugadores
+          const firstTenPlayers = players.slice(0, 10);
+          setDraftPlayers(firstTenPlayers);
+        })
+        .catch(error => {
+          console.error('Error fetching draft players:', error);
+        });
 
-        // Obtener todos los equipos y contar las victorias
-        fetch('http://localhost:8080/team/getAll')
+      // Obtener todos los equipos y contar las victorias
+      fetch('http://localhost:8080/team/getAll')
         .then(response => response.json())
         .then(teams => {
           const teamIds = teams.map(team => team.team_id);
@@ -83,30 +84,25 @@ function Home() {
 
             const teamWinsResults = await Promise.all(teamWinsPromises);
 
-            // Encontrar el equipo con más victorias
-            let maxWins = -1;
-            let teamWithMostWins = null;
+            // Encontrar los equipos con más victorias
+            const maxWins = Math.max(...teamWinsResults.map(team => team.wins));
+            const teamsWithMostWins = teamWinsResults.filter(team => team.wins === maxWins);
 
-            teamWinsResults.forEach(team => {
-              if (team.wins > maxWins) {
-                maxWins = team.wins;
-                teamWithMostWins = team;
-              }
-            });
+            setMostChampionshipTeams(teamsWithMostWins);
 
-            setMostChampionshipTeams(teamWithMostWins);
+            // Obtener detalles de los equipos con más victorias
+            const fetchTeamDetails = async () => {
+              const teamDetailsPromises = teamsWithMostWins.map(async team => {
+                const response = await fetch(`http://localhost:8080/team/getById/${team.team_id}`);
+                const result = await response.json();
+                return result;
+              });
 
-            // Obtener detalles del equipo con más victorias
-            if (teamWithMostWins) {
-              fetch(`http://localhost:8080/team/getById/${teamWithMostWins.team_id}`)
-                .then(response => response.json())
-                .then(teamDetails => {
-                  setTeamDetails(teamDetails);
-                })
-                .catch(error => {
-                  console.error(`Error fetching team details for team_id ${teamWithMostWins.team_id}:`, error);
-                });
-            }
+              const teamsDetailsResults = await Promise.all(teamDetailsPromises);
+              setTeamDetails(teamsDetailsResults);
+            };
+
+            fetchTeamDetails();
           };
 
           fetchTeamWins();
@@ -114,7 +110,6 @@ function Home() {
         .catch(error => {
           console.error('Error fetching teams:', error);
         });
-
     })
     .catch(error => {
       console.error('Error fetching championships:', error);
@@ -129,13 +124,6 @@ const handleSort = (key) => {
   setSortConfig({ key, direction });
 };
 
-const sortedPlayers = [...clutchPlayers].sort((a, b) => {
-  if (sortConfig.direction === 'asc') {
-      return a[sortConfig.key] - b[sortConfig.key];
-  } else {
-      return b[sortConfig.key] - a[sortConfig.key];
-  }
-});
 
 if (!latestChampionshipData || !teamDetails) {
   return <div>Loading...</div>;
@@ -152,6 +140,48 @@ if (!latestChampionshipData || !teamDetails) {
     return `https://www.fanatics.es/content/ws/106003/NBA_${formattedCity}_${formattedName}_Global_Logo_200x200.svg`;
   };
 
+  const renderSortIcon = (key) => {
+    if (sortConfig.key === key) {
+      return sortConfig.direction === 'asc' ? (
+        <FontAwesomeIcon icon={faSortUp} />
+      ) : (
+        <FontAwesomeIcon icon={faSortDown} />
+      );
+    }
+    return null;
+  };
+
+  const filterTopPlayersByTeam = (players) => {
+    // Agrupa a los jugadores por equipo
+    const groupedByTeam = players.reduce((acc, player) => {
+      const team = player.teams.name;
+      if (!acc[team]) {
+        acc[team] = [];
+      }
+      acc[team].push(player);
+      return acc;
+    }, {});
+  
+    // Ordena y selecciona los 3 mejores jugadores por equipo
+    const filteredPlayers = Object.values(groupedByTeam).flatMap(teamPlayers => 
+      teamPlayers.sort((a, b) => b.pointsPerGame - a.pointsPerGame).slice(0, 3)
+    );
+  
+    return filteredPlayers;
+  };
+
+  const filteredClutchPlayers = filterTopPlayersByTeam(clutchPlayers);
+
+const sortedPlayers = [...filteredClutchPlayers].sort((a, b) => {
+  if (sortConfig.direction === 'asc') {
+    return a[sortConfig.key] - b[sortConfig.key];
+  } else {
+    return b[sortConfig.key] - a[sortConfig.key];
+  }
+});
+
+  
+
   return (
     <div className="main-content">
       <div className="left-content">
@@ -164,7 +194,7 @@ if (!latestChampionshipData || !teamDetails) {
           </thead>
           <tbody>
             {finalsWinner && (
-              <tr>
+              <tr className="winner-team">
                 <td className="team-cell winner">
                   <img
                     src={getImageUrl(finalsWinner.teams.city, finalsWinner.teams.name)}
@@ -184,7 +214,7 @@ if (!latestChampionshipData || !teamDetails) {
               </tr>
             )}
             {finalsLoser && (
-              <tr>
+              <tr className="loser-team">
                 <td className="team-cell">
                   <img
                     src={getImageUrl(finalsLoser.teams.city, finalsLoser.teams.name)}
@@ -208,35 +238,88 @@ if (!latestChampionshipData || !teamDetails) {
               <th colSpan="12">CLUTCH PLAYERS</th>
             </tr>
             <tr>
-              <th>Player</th>
-              <th onClick={() => handleSort('jerseyNumber')}>NO</th>
-              <th onClick={() => handleSort('teams.code')}>TM</th>
-              <th onClick={() => handleSort('gamesPlayed')}>GP</th>
-              <th onClick={() => handleSort('minutesPerGame')}>MPG</th>
-              <th onClick={() => handleSort('pointsPerGame')}>PPG</th>
-              <th onClick={() => handleSort('reboundsPerGame')}>RPG</th>
-              <th onClick={() => handleSort('assistsPerGame')}>APG</th>
-              <th onClick={() => handleSort('stealsPerGame')}>SPG</th>
-              <th onClick={() => handleSort('blocksPerGame')}>BPG</th>
-              <th onClick={() => handleSort('percentageFieldGoals')}>FG%</th>
-              <th onClick={() => handleSort('percentageThreePoints')}>3P%</th>
+            <th>Player</th>
+              <th>
+                NO
+              </th>
+              <th>
+                TM
+              </th>
+              <th
+                className={sortConfig.key === 'gamesPlayed' ? 'sorted-column' : ''}
+                onClick={() => handleSort('gamesPlayed')}
+              >
+                GP {renderSortIcon('gamesPlayed')}
+              </th>
+              <th
+                className={sortConfig.key === 'minutesPerGame' ? 'sorted-column' : ''}
+                onClick={() => handleSort('minutesPerGame')}
+              >
+                MPG {renderSortIcon('minutesPerGame')}
+              </th>
+              <th
+                className={sortConfig.key === 'pointsPerGame' ? 'sorted-column' : ''}
+                onClick={() => handleSort('pointsPerGame')}
+              >
+                PPG {renderSortIcon('pointsPerGame')}
+              </th>
+              <th
+                className={sortConfig.key === 'reboundsPerGame' ? 'sorted-column' : ''}
+                onClick={() => handleSort('reboundsPerGame')}
+              >
+                RPG {renderSortIcon('reboundsPerGame')}
+              </th>
+              <th
+                className={sortConfig.key === 'assistsPerGame' ? 'sorted-column' : ''}
+                onClick={() => handleSort('assistsPerGame')}
+              >
+                APG {renderSortIcon('assistsPerGame')}
+              </th>
+              <th
+                className={sortConfig.key === 'stealsPerGame' ? 'sorted-column' : ''}
+                onClick={() => handleSort('stealsPerGame')}
+              >
+                SPG {renderSortIcon('stealsPerGame')}
+              </th>
+              <th
+                className={sortConfig.key === 'blocksPerGame' ? 'sorted-column' : ''}
+                onClick={() => handleSort('blocksPerGame')}
+              >
+                BPG {renderSortIcon('blocksPerGame')}
+              </th>
+              <th
+                className={sortConfig.key === 'percentageFieldGoals' ? 'sorted-column' : ''}
+                onClick={() => handleSort('percentageFieldGoals')}
+              >
+                FG% {renderSortIcon('percentageFieldGoals')}
+              </th>
+              <th
+                className={sortConfig.key === 'percentageThreePoints' ? 'sorted-column' : ''}
+                onClick={() => handleSort('percentageThreePoints')}
+              >
+                3P% {renderSortIcon('percentageThreePoints')}
+              </th>
             </tr>
-            {sortedPlayers.map(player => (
-                    <tr key={player.id.player_id}>
-                        <td>{player.players.name} {player.players.jerseyName}</td>
-                        <td>{player.jerseyNumber}</td>
-                        <td>{player.teams.code}</td>
-                        <td>{player.gamesPlayed}</td>
-                        <td>{player.minutesPerGame}</td>
-                        <td>{player.pointsPerGame}</td>
-                        <td>{player.reboundsPerGame}</td>
-                        <td>{player.assistsPerGame}</td>
-                        <td>{player.stealsPerGame}</td>
-                        <td>{player.blocksPerGame}</td>
-                        <td>{player.percentageFieldGoals}</td>
-                        <td>{player.percentageThreePoints}</td>
-                    </tr>
-                ))}
+            {sortedPlayers.map((player) => (
+              <tr key={player.players.player_id}>
+                <td className="player-cell">
+                  <Link to={`/player/${player.players.player_id}`}>
+                    {player.players.name} {player.players.jerseyName}
+                  </Link>
+                </td>
+                <td>{player.jerseyNumber}</td>
+                <td>{player.teams.code}</td>
+                <td className={sortConfig.key === 'gamesPlayed' ? 'highlight-column' : ''}>{player.gamesPlayed}</td>
+                <td className={sortConfig.key === 'minutesPerGame' ? 'highlight-column' : ''}>{player.minutesPerGame}</td>
+                <td className={sortConfig.key === 'pointsPerGame' ? 'highlight-column' : ''}>{player.pointsPerGame}</td>
+                <td className={sortConfig.key === 'reboundsPerGame' ? 'highlight-column' : ''}>{player.reboundsPerGame}</td>
+                <td className={sortConfig.key === 'assistsPerGame' ? 'highlight-column' : ''}>{player.assistsPerGame}</td>
+                <td className={sortConfig.key === 'stealsPerGame' ? 'highlight-column' : ''}>{player.stealsPerGame}</td>
+                <td className={sortConfig.key === 'blocksPerGame' ? 'highlight-column' : ''}>{player.blocksPerGame}</td>
+                <td className={sortConfig.key === 'percentageFieldGoals' ? 'highlight-column' : ''}>{player.percentageFieldGoals}</td>
+                <td className={sortConfig.key === 'percentageThreePoints' ? 'highlight-column' : ''}>{player.percentageThreePoints}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -249,25 +332,31 @@ if (!latestChampionshipData || !teamDetails) {
               </tr>
             </thead>
             <tbody>
-            {mostChampionshipTeams && (
+            {teamDetails && teamDetails.length > 0 ? (
+              teamDetails.map(team => (
+                <tr key={team.team_id}>
+                  <td className="team-cell">
+                    <img
+                      src={getImageUrl(team.city, team.name)}
+                      alt={`${team.city} ${team.name} Logo`}
+                      className="team-logo"
+                    />
+                    <span className="team-name">
+                      <td>
+                        <Link to={`/team/${team.team_id}`}>
+                          {team.city} {team.name}
+                        </Link>
+                      </td>
+                    </span>
+                  </td>
+                  <td>{mostChampionshipTeams.find(t => t.team_id === team.team_id).wins}</td>
+                </tr>
+              ))
+            ) : (
               <tr>
-              <td className="team-cell">
-                <img
-                  src={getImageUrl(teamDetails.city, teamDetails.name)}
-                  alt={`${teamDetails.city} ${teamDetails.name} Logo`}
-                  className="team-logo"
-                />
-                <span className="team-name">
-                <td>
-                      <Link to={`/team/${teamDetails.team_id}`}>
-                        {teamDetails.city} {teamDetails.name}
-                      </Link>
-                    </td>
-                </span>
-              </td>
-              <td>{mostChampionshipTeams.wins}</td>
-            </tr>
-              )}
+                <td colSpan="2">Loading...</td>
+              </tr>
+            )}
             </tbody>
           </table>
         </div>

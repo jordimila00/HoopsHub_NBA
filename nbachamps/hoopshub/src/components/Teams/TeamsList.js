@@ -104,7 +104,7 @@ function TeamsList() {
           <div className="flex flex-wrap justify-between w-full mt-4">
             {Object.keys(divisions).map(division => (
               <div key={division} className="w-full lg:w-1/3 p-4"> {/* Ajustado el ancho del contenedor */}
-                <h3 className="text-2xl font-semibold mb-4">{division}</h3> {/* Ajustado el tamaño del texto */}
+                <h3 className="text-2xl font-semibold mb-4">{division.toUpperCase()} DIVISION</h3> {/* Ajustado el tamaño del texto */}
                 <table className="w-full bg-white rounded-lg shadow-md table-fixed">
                   <thead>
                     <tr>
@@ -143,7 +143,7 @@ function TeamsList() {
           <div className="flex flex-wrap justify-between w-full mt-4">
             {Object.keys(divisions).map(division => (
               <div key={division} className="w-full lg:w-1/3 p-4"> {/* Ajustado el ancho del contenedor */}
-                <h3 className="text-2xl font-semibold mb-4">{division}</h3> {/* Ajustado el tamaño del texto */}
+                <h5 className="text-xl font-semibold mb-4">{division.toUpperCase()} DIVISION</h5> {/* Ajustado el tamaño del texto */}
                 <table className="w-full bg-white rounded-lg shadow-md table-fixed">
                   <thead>
                     <tr>

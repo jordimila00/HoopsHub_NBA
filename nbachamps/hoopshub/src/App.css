@@ -109,3 +109,21 @@ main {
   align-items: center;
 }
 
+.highlight-column {
+  background-color: lightblue; /* Cambia a cualquier color de tu elección */
+}
+
+/* En tu archivo App.css o index.css */
+.winner-team {
+  background-color: #ccffcc; /* Verde clarito */
+}
+.winner-team td{
+  border:#ccffcc;
+}
+
+.loser-team {
+  background-color: #ffcccc; /* Verde clarito */
+}
+.loser-team td{
+  border:#ffcccc;
+}
