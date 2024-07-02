@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './PlayerDetail.css';
+
 
 function PlayerDetail() {
   const { player_id } = useParams();
@@ -35,19 +37,27 @@ function PlayerDetail() {
   if (!player) {
     return <div>Loading...</div>;
   }
-
   return (
-    <div class="mt-6">
-      <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-      <img src={playerImage} alt={`Headshot of ${player.name}`} className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"/>
-        <div class="flex flex-col justify-between p-4 leading-normal">
-          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{player.name} {player.jerseyName}</h2>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Born in {player.birthDate}</p>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{player.birthCity}, {player.birthState}</p>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{player.height}, {player.weight}</p>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><p>Class of {player.draftYear}, Pick {player.draftPick}.</p></p>
-          <img src={flagUrl} alt={`Flag of ${player.birthCountry}`}/>
+    <div className='mt-2'>
+      <div className="p-6 w-80 cursor-pointer rounded-3xl bg-green-100 transition duration-300 ease-in-out hover:scale-105 hover:drop-shadow-2xl">
+        <div className=" mt-32 -mb-20 -translate-y-1/2 transform profile-image">
+          <img src={playerImage} alt={player.name} title={player.name} className="mx-auto h-56" />
         </div>
+        <div className="text-center">
+          <h3 className="text-center text-3xl font-bold">{player.name} {player.jerseyName}</h3>
+          <span className="text-sm">{player.birthDate}</span><br/>
+          <span className="text-sm">{player.birthCity}, {player.birthState}</span>
+        </div>
+        <ul className="mt-4 mb-4 flex justify-center text-center text-l">
+          <li className="flex flex-col"><span className="font-bold">DRAFT</span>{player.draftYear} Pick {player.draftPick}</li>
+        </ul>
+        <ul className="mb-4 flex justify-center text-center text-m">
+          <li className="flex flex-col"><span className="font-bold">HEIGHT</span> {player.height} m</li>
+          <li className="mx-4 flex flex-col"><span className="font-bold">WEIGHT</span> {player.weight} kg</li>
+        </ul>
+        <ul className="flex justify-center text-center text-xl">
+          <li className="flex flex-col"><img src={flagUrl}/></li>
+        </ul>
       </div>
     </div>
   );

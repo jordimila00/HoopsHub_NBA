@@ -62,13 +62,13 @@ function TeamsList() {
   return (
     <div className="px-4 bg-white h-full">
       <div className="flex flex-col items-center justify-center">
-        <div className="mt-4 mb-8">
+        <div className="mt-6">
           {!showMapAndLogos && (
             <button
               onClick={handleShowMapAndLogos}
               className="bg-orange-500 hover:bg-orange-700 text-black font-bold py-2 px-4 rounded-lg mb-4"
             >
-              Go Back to Map
+              WATCH MAP
             </button>
           )}
         </div>
@@ -101,7 +101,7 @@ function TeamsList() {
 
 
         {conferenceFilter === 'Eastern' && (
-          <div className="flex flex-wrap justify-between w-full mt-4">
+          <div className="flex flex-wrap justify-between w-full mt-2">
             {Object.keys(divisions).map(division => (
               <div key={division} className="w-full lg:w-1/3 p-4"> {/* Ajustado el ancho del contenedor */}
                 <h3 className="text-2xl font-semibold mb-4">{division.toUpperCase()} DIVISION</h3> {/* Ajustado el tamaño del texto */}
@@ -140,7 +140,7 @@ function TeamsList() {
         )}
 
         {conferenceFilter === 'Western' && (
-          <div className="flex flex-wrap justify-between w-full mt-4">
+          <div className="flex flex-wrap justify-between w-full mt-2">
             {Object.keys(divisions).map(division => (
               <div key={division} className="w-full lg:w-1/3 p-4"> {/* Ajustado el ancho del contenedor */}
                 <h5 className="text-xl font-semibold mb-4">{division.toUpperCase()} DIVISION</h5> {/* Ajustado el tamaño del texto */}
