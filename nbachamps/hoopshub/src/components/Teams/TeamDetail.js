@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './TeamDetail.css'; // Importa el archivo CSS
+import './TeamDetail.css';
 import NBATrophy from '../../assets/images/The_NBA_Trophy.png'; // Importa la imagen
 
 function TeamDetail() {
@@ -43,6 +43,9 @@ function TeamDetail() {
   }
 
   const getImageUrl = (city, name) => {
+    if (city === 'Los Angeles' && name === 'Clippers') {
+      return 'https://www.fanatics.es/content/ws/all/65c2d838-8d23-4e08-8d0f-fdf26abe4011.svg';
+    }
     const formattedCity = city.replace(/\s+/g, '_'); // Reemplaza espacios con _
     const formattedName = name.replace(/\s+/g, '_'); // Reemplaza espacios con _
     return `https://www.fanatics.es/content/ws/106003/NBA_${formattedCity}_${formattedName}_Global_Logo_200x200.svg`;

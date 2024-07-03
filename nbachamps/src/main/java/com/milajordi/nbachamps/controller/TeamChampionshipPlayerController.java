@@ -38,4 +38,15 @@ public class TeamChampionshipPlayerController {
         List<TeamChampionshipPlayer> players = teamChampionshipPlayerService.getTeamChampionshipPlayersByYear(year);
         return ResponseEntity.ok(players);
     }
+
+    @GetMapping("/getByPlayer/{player_id}")
+    public ResponseEntity<List<TeamChampionshipPlayer>> getTeamChampionshipPlayersByPlayer(@PathVariable Integer player_id) {
+        List<TeamChampionshipPlayer> players = teamChampionshipPlayerService.getTeamChampionshipPlayersByPlayer(player_id);
+        return ResponseEntity.ok(players);
+    }
+
+
+
+
+
 }

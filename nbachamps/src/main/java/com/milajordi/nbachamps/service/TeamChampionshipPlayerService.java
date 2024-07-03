@@ -10,4 +10,7 @@ public interface TeamChampionshipPlayerService {
     List<TeamChampionshipPlayer> getAllTeamChampionshipPlayers();
 
     List<TeamChampionshipPlayer> getTeamChampionshipPlayersByYear(Integer year);
+
+
+    List<TeamChampionshipPlayer> getTeamChampionshipPlayersByPlayer(Integer playerId);
 }

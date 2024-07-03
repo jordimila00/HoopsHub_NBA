@@ -1,11 +1,14 @@
 package com.milajordi.nbachamps.model;
 
 import jakarta.persistence.*;
+import org.springframework.validation.annotation.Validated;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "team_championship_player")
+@Validated
 public class TeamChampionshipPlayer {
 
     @EmbeddedId
@@ -35,15 +38,16 @@ public class TeamChampionshipPlayer {
     private Double assistsPerGame;
     private Double stealsPerGame;
     private Double blocksPerGame;
-    private Integer percentageFieldGoals;
-    private Integer percentageThreePoints;
+    private Double percentageFieldGoals;
+    private Double percentageThreePoints;
+
 
 
 
     public TeamChampionshipPlayer() {
     }
 
-    public TeamChampionshipPlayer(TeamChampionshipPlayerId id, Teams teams, Championships championships, Players players, Integer jerseyNumber,Integer gamesPlayed,Double minutesPerGame,Double pointsPerGame,Double reboundsPerGame,Double assistsPerGame,Double stealsPerGame,Double blocksPerGame,Integer percentageFieldGoals,Integer percentageThreePoints ) {
+    public TeamChampionshipPlayer(TeamChampionshipPlayerId id, Teams teams, Championships championships, Players players, Integer jerseyNumber,Integer gamesPlayed,Double minutesPerGame,Double pointsPerGame,Double reboundsPerGame,Double assistsPerGame,Double stealsPerGame,Double blocksPerGame,Double percentageFieldGoals,Double percentageThreePoints ) {
         this.id = id;
         this.teams = teams;
         this.championships = championships;
@@ -157,19 +161,19 @@ public class TeamChampionshipPlayer {
         this.blocksPerGame = blocksPerGame;
     }
 
-    public Integer getPercentageFieldGoals() {
+    public Double getPercentageFieldGoals() {
         return percentageFieldGoals;
     }
 
-    public void setPercentageFieldGoals(Integer percentageFieldGoals) {
+    public void setPercentageFieldGoals(Double percentageFieldGoals) {
         this.percentageFieldGoals = percentageFieldGoals;
     }
 
-    public Integer getPercentageThreePoints() {
+    public Double getPercentageThreePoints() {
         return percentageThreePoints;
     }
 
-    public void setPercentageThreePoints(Integer percentageThreePoints) {
+    public void setPercentageThreePoints(Double percentageThreePoints) {
         this.percentageThreePoints = percentageThreePoints;
     }
 
@@ -177,8 +181,11 @@ public class TeamChampionshipPlayer {
 
     @Embeddable
     public static class TeamChampionshipPlayerId implements Serializable{
+
         private Integer team_id;
+
         private Integer year;
+
         private Integer player_id;
 
         public TeamChampionshipPlayerId() {
@@ -227,6 +234,7 @@ public class TeamChampionshipPlayer {
             return Objects.hash(team_id, year, player_id);
         }
     }
+
 
 
 }

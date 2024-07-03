@@ -26,17 +26,6 @@ function Home() {
   const [clutchPlayers, setClutchPlayers] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: 'pointsPerGame', direction: 'desc' });
 
-  useEffect(() => {
-    fetch('http://localhost:8080/teamchampionshipplayer/getByYear/2024')
-        .then(response => response.json())
-        .then(data => {
-            setClutchPlayers(data);
-        })
-        .catch(error => {
-            console.error('Error fetching clutch players:', error);
-        });
-}, []);
-
 useEffect(() => {
   // Obtener todos los campeonatos
   fetch('http://localhost:8080/championship/getAll')
@@ -44,7 +33,6 @@ useEffect(() => {
     .then(championships => {
       // Encontrar el año más reciente
       const latestYear = Math.max(...championships.map(championship => championship.year));
-      setLatestYear(latestYear);
 
       // Obtener los datos del campeonato más reciente
       fetch(`http://localhost:8080/teamchampionship/year/${latestYear}`)
@@ -67,6 +55,17 @@ useEffect(() => {
         .catch(error => {
           console.error('Error fetching draft players:', error);
         });
+
+        
+    fetch(`http://localhost:8080/teamchampionshipplayer/getByYear/${latestYear}`)
+        .then(response => response.json())
+        .then(data => {
+            setClutchPlayers(data);
+        })
+        .catch(error => {
+            console.error('Error fetching clutch players:', error);
+        });
+
 
       // Obtener todos los equipos y contar las victorias
       fetch('http://localhost:8080/team/getAll')
@@ -116,6 +115,8 @@ useEffect(() => {
     });
 }, []);
 
+
+
 const handleSort = (key) => {
   let direction = 'asc';
   if (sortConfig.key === key && sortConfig.direction === 'asc') {
@@ -129,7 +130,6 @@ if (!latestChampionshipData || !teamDetails) {
   return <div>Loading...</div>;
 }
 
-  console.log(mostChampionshipTeams);
 
   const finalsWinner = latestChampionshipData.find(team => team.isChampion);
   const finalsLoser = latestChampionshipData.find(team => !team.isChampion);

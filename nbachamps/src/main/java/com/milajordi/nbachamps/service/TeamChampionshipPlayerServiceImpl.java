@@ -70,5 +70,12 @@ public class TeamChampionshipPlayerServiceImpl implements TeamChampionshipPlayer
     public List<TeamChampionshipPlayer> getTeamChampionshipPlayersByYear(Integer year) {
         return teamChampionshipPlayerRepository.findByIdYear(year);
     }
+
+    @Override
+    public List<TeamChampionshipPlayer> getTeamChampionshipPlayersByPlayer(Integer playerId) {
+        return teamChampionshipPlayerRepository.findByIdPlayer(playerId);
+    }
+
+
 }
 
