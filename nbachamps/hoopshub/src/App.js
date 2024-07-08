@@ -14,6 +14,10 @@ import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import PlayerDetail from './components/Players/PlayerDetail';
 import TeamDetail from './components/Teams/TeamDetail';
 import DraftList from './components/Drafts/DraftList';
+import ChampionshipList from './components/Championships/ChampionshipList';
+import ErrorDetail from './components/Error/ErrorDetail';
+import ChampionshipDetail from './components/Championships/ChampionshipDetail';
+
 
 
 function Home() {
@@ -33,6 +37,7 @@ useEffect(() => {
     .then(championships => {
       // Encontrar el año más reciente
       const latestYear = Math.max(...championships.map(championship => championship.year));
+      setLatestYear(latestYear);
 
       // Obtener los datos del campeonato más reciente
       fetch(`http://localhost:8080/teamchampionship/year/${latestYear}`)
@@ -135,11 +140,14 @@ if (!latestChampionshipData || !teamDetails) {
   const finalsLoser = latestChampionshipData.find(team => !team.isChampion);
 
   const getImageUrl = (city, name) => {
+    if (city === 'Los Angeles' && name === 'Clippers') {
+      return 'https://www.fanatics.es/content/ws/all/65c2d838-8d23-4e08-8d0f-fdf26abe4011.svg';
+    }
     const formattedCity = city.replace(/\s+/g, '_'); // Reemplaza espacios con _
     const formattedName = name.replace(/\s+/g, '_'); // Reemplaza espacios con _
     return `https://www.fanatics.es/content/ws/106003/NBA_${formattedCity}_${formattedName}_Global_Logo_200x200.svg`;
   };
-
+  
   const renderSortIcon = (key) => {
     if (sortConfig.key === key) {
       return sortConfig.direction === 'asc' ? (
@@ -235,7 +243,7 @@ const sortedPlayers = [...filteredClutchPlayers].sort((a, b) => {
             )}
             <br/><br/>
             <tr>
-              <th colSpan="12">CLUTCH PLAYERS</th>
+              <th colSpan="12">{latestYear} CHAMPIONSHIP CLUTCH PLAYERS</th>
             </tr>
             <tr>
             <th>Player</th>
@@ -418,9 +426,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/teams" element={<TeamsList />} />
             <Route path="/players" element={<PlayersList />} />
+            <Route path="/championships" element={<ChampionshipList />} />
             <Route path="/drafts" element={<DraftList />} />
             <Route path="/player/:player_id" element={<PlayerDetail />} />
             <Route path="/team/:team_id" element={<TeamDetail />} />
+            <Route path="/championship/:year" element={<ChampionshipDetail />} />
+            <Route path="*" element={<ErrorDetail />} />
           </Routes>
         </main>
 

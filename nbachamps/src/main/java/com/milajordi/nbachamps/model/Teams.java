@@ -32,10 +32,12 @@ public class Teams {
 
     private String code;
 
+    private String color;
+
     public Teams() {
     }
 
-    public Teams(Integer team_id, String city, String name, String arena,Division division,Conference conference,Integer seats,Integer arenaYear,Integer establishmentYear, String code) {
+    public Teams(Integer team_id, String city, String name, String arena,Division division,Conference conference,Integer seats,Integer arenaYear,Integer establishmentYear, String code,String color) {
         this.team_id = team_id;
         this.city = city;
         this.name = name;
@@ -46,6 +48,7 @@ public class Teams {
         this.arenaYear=arenaYear;
         this.establishmentYear=establishmentYear;
         this.code = code;
+        this.color = color;
     }
 
     public Integer getTeam_id() {
@@ -126,5 +129,13 @@ public class Teams {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

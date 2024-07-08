@@ -45,6 +45,12 @@ public class TeamChampionshipPlayerController {
         return ResponseEntity.ok(players);
     }
 
+    @GetMapping("/getByTeam/{team_id}")
+    public ResponseEntity<List<TeamChampionshipPlayer>> getTeamChampionshipPlayersByTeam(@PathVariable Integer team_id) {
+        List<TeamChampionshipPlayer> players = teamChampionshipPlayerService.getTeamChampionshipPlayersByTeam(team_id);
+        return ResponseEntity.ok(players);
+    }
+
 
 
 

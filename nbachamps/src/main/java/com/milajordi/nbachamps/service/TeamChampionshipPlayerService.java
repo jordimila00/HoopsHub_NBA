@@ -13,4 +13,6 @@ public interface TeamChampionshipPlayerService {
 
 
     List<TeamChampionshipPlayer> getTeamChampionshipPlayersByPlayer(Integer playerId);
+
+    List<TeamChampionshipPlayer> getTeamChampionshipPlayersByTeam(Integer teamId);
 }

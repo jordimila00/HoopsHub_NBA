@@ -21,12 +21,20 @@ public class PlayerServiceImpl implements PlayerService {
         Double height = players.getHeight();
         Integer weight = players.getWeight();
 
-        // Comprobar si ya existe un jugador con el mismo draftYear y draftPick
-        Players existingPlayer = playerRepository.findByDraftYearAndDraftPick(draftYear, draftPick);
-        if (existingPlayer != null && !existingPlayer.getPlayer_id().equals(players.getPlayer_id())) {
-            throw new IllegalArgumentException("Ya existe un jugador con el pick de draft " + draftPick + " para el año " + draftYear);
-        } else if (draftPick < 1 || draftPick > 60) {
-            throw new IllegalArgumentException("El número de pick de draft debe estar entre 1 y 60.");
+        // Validar draftPick si no es null y no es "undrafted"
+        if (draftPick != null && draftPick != 0) {
+            if (draftPick < 1 || draftPick > 60) {
+                throw new IllegalArgumentException("El número de pick de draft debe estar entre 1 y 60.");
+            }
+        }
+
+        // Validar draftYear si no es null y no es "undrafted"
+        if (draftYear != null && draftYear != 0) {
+            // Comprobar si ya existe un jugador con el mismo draftYear y draftPick
+            Players existingPlayer = playerRepository.findByDraftYearAndDraftPick(draftYear, draftPick);
+            if (existingPlayer != null && !existingPlayer.getPlayer_id().equals(players.getPlayer_id())) {
+                throw new IllegalArgumentException("Ya existe un jugador con el pick de draft " + draftPick + " para el año " + draftYear);
+            }
         }
 
         // Validar height

@@ -20,6 +20,9 @@ public interface TeamChampionshipPlayerRepository extends JpaRepository<TeamCham
     @Query("SELECT tcp FROM TeamChampionshipPlayer tcp WHERE tcp.id.player_id = :player_id")
     List<TeamChampionshipPlayer> findByIdPlayer(@Param("player_id") Integer player_id);
 
+    @Query("SELECT tcp FROM TeamChampionshipPlayer tcp WHERE tcp.id.team_id = :team_id")
+    List<TeamChampionshipPlayer> findByIdTeam(@Param("team_id") Integer team_id);
+
 
 
 
